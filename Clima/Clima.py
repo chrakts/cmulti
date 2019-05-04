@@ -18,37 +18,37 @@ class Clima(CMULTI):
     
     
   def getSerialNumber(self):
-    return(self.sendCommand(self.target,"SPs?"))
+    return(self.sendCommand(self.target,"SP0s",""))
     
   def getIDNumber(self):
-    return(self.sendCommand(self.target,"SPi?"))
+    return(self.sendCommand(self.target,"SP0i",""))
 
   def getIndex(self):
-    return(self.sendCommand(self.target,"SPx?"))
+    return(self.sendCommand(self.target,"SP0x",""))
 
   def setSecurityKey(self,key):
-    return(self.sendCommand(self.target,"SSKT"+key)[0])
+    return(self.sendCommand(self.target,"SS0K",key)[0])
 
-  def setSecurityKey(self,key):
-    return(self.sendCommand(self.target,"SSKT"+key)[0])
+  def getSecurityKey(self):
+    return(self.sendCommand(self.target,"SS0k","")[0])
 
   def getFreeMemory(self):
-    boolAnswer,answer = self.sendCommand(self.target,"SSm?")
+    boolAnswer,answer = self.sendCommand(self.target,"SS0m","")
     if boolAnswer==True:
       return(True,int(answer))
     else:
       return(False,-1)
 
   def makeReset(self):
-    boolAnswer,answer = self.sendCommand(self.target,"SSRTReset")
+    boolAnswer,answer = self.sendCommand(self.target,"SS0R","Reset")
     return boolAnswer
     
   def makeBootload(self):
-    boolAnswer,answer = self.sendCommand(self.target,"SSBTBootload")
+    boolAnswer,answer = self.sendCommand(self.target,"SS0B","Bootload")
     return boolAnswer
   
   def getTemperature(self):
-    (boolResult,Result) = self.sendCommand(self.target,"SCt?")
+    (boolResult,Result) = self.sendCommand(self.target,"SC0t","")
     print(Result)
     try:
       fResult = float(Result)
@@ -57,7 +57,7 @@ class Clima(CMULTI):
       return(False,-999.9)
   	 
   def getHumidity(self):
-    (boolResult,Result) = self.sendCommand(self.target,"SCh?")
+    (boolResult,Result) = self.sendCommand(self.target,"SC0h","")
     print(Result)
     try:
       fResult = float(Result)
@@ -66,7 +66,7 @@ class Clima(CMULTI):
       return(False,-999.9)
 
   def getAbsoluteHumidity(self):
-    (boolResult,Result) = self.sendCommand(self.target,"SCa?")
+    (boolResult,Result) = self.sendCommand(self.target,"SC0a","")
     print(Result)
     try:
       fResult = float(Result)
@@ -75,7 +75,7 @@ class Clima(CMULTI):
       return(False,-999.9)
   	 
   def getDewPoint(self):
-    (boolResult,Result) = self.sendCommand(self.target,"SCd?")
+    (boolResult,Result) = self.sendCommand(self.target,"SC0d","")
     print(Result)
     try:
       fResult = float(Result)
@@ -84,7 +84,7 @@ class Clima(CMULTI):
       return(False,-999.9)
   	 
   def getPressure(self):
-    (boolResult,Result) = self.sendCommand(self.target,"SCp?")
+    (boolResult,Result) = self.sendCommand(self.target,"SC0p","")
     print(Result)
     try:
       fResult = float(Result)
@@ -93,7 +93,7 @@ class Clima(CMULTI):
       return(False,-999.9)
   	 
   def getSealevel(self):
-    (boolResult,Result) = self.sendCommand(self.target,"SCs?")
+    (boolResult,Result) = self.sendCommand(self.target,"SC0s","")
     print(Result)
     try:
       fResult = float(Result)
@@ -102,7 +102,7 @@ class Clima(CMULTI):
       return(False,-999.9)
   	 
   def getLight(self):
-    (boolResult,Result) = self.sendCommand(self.target,"SCl?")
+    (boolResult,Result) = self.sendCommand(self.target,"SC0l","")
     print(Result)
     try:
       fResult = float(Result)
@@ -111,6 +111,7 @@ class Clima(CMULTI):
       return(False,-999.9)
   	 
 test = Clima('CP','C1',withCrc=True)
+print( test.getSecurityKey() )
 print( test.getTemperature() )
 print( test.getHumidity() )
 print( test.getAbsoluteHumidity() )
@@ -118,4 +119,7 @@ print( test.getDewPoint() )
 print( test.getPressure() )
 print( test.getSealevel() )
 print( test.getLight() )
-
+print( test.setSecurityKey("Phe6%!kdf?+2aQ") )
+print( test.getSecurityKey() )
+print( test.getSerialNumber() )
+print( test.getFreeMemory() )
