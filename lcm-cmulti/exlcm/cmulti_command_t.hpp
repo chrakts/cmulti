@@ -25,6 +25,8 @@ class cmulti_command_t
 
         std::string parameter;
 
+        int8_t     informationType;
+
         int8_t     expect_answer;
 
         int16_t    timeout_ms;
@@ -143,6 +145,9 @@ int cmulti_command_t::_encodeNoHash(void *buf, int offset, int maxlen) const
     tlen = __string_encode_array(buf, offset + pos, maxlen - pos, &parameter_cstr, 1);
     if(tlen < 0) return tlen; else pos += tlen;
 
+    tlen = __int8_t_encode_array(buf, offset + pos, maxlen - pos, &this->informationType, 1);
+    if(tlen < 0) return tlen; else pos += tlen;
+
     tlen = __boolean_encode_array(buf, offset + pos, maxlen - pos, &this->expect_answer, 1);
     if(tlen < 0) return tlen; else pos += tlen;
 
@@ -187,6 +192,9 @@ int cmulti_command_t::_decodeNoHash(const void *buf, int offset, int maxlen)
     this->parameter.assign(((const char*)buf) + offset + pos, __parameter_len__ - 1);
     pos += __parameter_len__;
 
+    tlen = __int8_t_decode_array(buf, offset + pos, maxlen - pos, &this->informationType, 1);
+    if(tlen < 0) return tlen; else pos += tlen;
+
     tlen = __boolean_decode_array(buf, offset + pos, maxlen - pos, &this->expect_answer, 1);
     if(tlen < 0) return tlen; else pos += tlen;
 
@@ -206,6 +214,7 @@ int cmulti_command_t::_getEncodedSizeNoHash() const
     enc_size += this->source.size() + 4 + 1;
     enc_size += this->command.size() + 4 + 1;
     enc_size += this->parameter.size() + 4 + 1;
+    enc_size += __int8_t_encoded_array_size(NULL, 1);
     enc_size += __boolean_encoded_array_size(NULL, 1);
     enc_size += __int16_t_encoded_array_size(NULL, 1);
     enc_size += __int8_t_encoded_array_size(NULL, 1);
@@ -214,7 +223,7 @@ int cmulti_command_t::_getEncodedSizeNoHash() const
 
 uint64_t cmulti_command_t::_computeHash(const __lcm_hash_ptr *)
 {
-    uint64_t hash = 0xd0ab9d57810872bcLL;
+    uint64_t hash = 0x834731eed3900ad6LL;
     return (hash<<1) + ((hash>>63)&1);
 }
 

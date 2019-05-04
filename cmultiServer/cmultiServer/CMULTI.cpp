@@ -310,9 +310,16 @@ uint8_t CMULTI::Send_Command(exlcm::cmulti_command_t *command)
 {
 	if(this->IsOpen())
 	{
-		cout << "Target:" << command->target << endl;
-		cout << "Source:" << command->source << endl;
-		cout << "Command:" << command->command << endl;
+		cout << "Target:   " << command->target << endl;
+		cout << "Source:   " << command->source << endl;
+		cout << "Command:  " << command->command << endl;
+		cout << "Parameter:" << command->parameter << endl;
+		if( command->parameter.length() > 0 )
+		{
+			command->command += "T";
+		}
+		else
+			command->command += "?";
 		if(command->crcType == cmulti_crc_constants_t.noCRC)
 		{
 			stringstream ss,s1,ll;
