@@ -27,19 +27,19 @@ class CMULTI(object):
       self.gotAnswer = False
       self.subscription = None
    
-   def sendCommand(self,target,command,expectAnswer = False):
+   def sendCommand(self,target,command,parameter,expectAnswer = False):
       if type(self.interface)==str:
-         boolAnswer,answer = self.sendCommandServer(target,command,expectAnswer)
+         boolAnswer,answer = self.sendCommandServer(target,command,parameter,expectAnswer)
       else:
-         boolAnswer,answer = self.sendCommandTTY(command,expectAnswer)
+         boolAnswer,answer = self.sendCommandTTY(command,parameter,expectAnswer)
       return(boolAnswer,answer)
             
-   def sendCommandServer(self,target,command,expectAnswer = True):
+   def sendCommandServer(self,target,command,parameter,expectAnswer = True):
       self.msg = cmulti_command_t()
       self.msg.command = command
       self.msg.target = target
       self.msg.source = self.source
-      self.msg.parameter = ""
+      self.msg.parameter = parameter
       
       self.msg.expect_answer = expectAnswer
       self.msg.crcType = self.crc
@@ -61,7 +61,7 @@ class CMULTI(object):
      #       return(self.msganswer.error,self.msganswer.answer[:-1])
         
       
-   def sendCommandTTY(self,command,expectAnswer = True):
+   def sendCommandTTY(self,command,parameter,expectAnswer = True):
       crcstring =  ("%04x" % (CRCCCITT().calculate(command)))  # ************************
       if self.crc != cmulti_crc_constants_t.noCRC:
          self.outputTTY("\\>"+command+"<"+crcstring+"\\")
