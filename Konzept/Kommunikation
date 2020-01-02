@@ -1,0 +1,30 @@
+#0fDC1CPSCl?228c
+#10DCPK1I16.<9b4c
+
+# 0f D C1 CP SCt? a856
+
+# 17 D CP C1 I 49.226639.< 8811
+
+
+##17DCPC1I27.269997.<5287
+#0fDC1CPSCh?ee48
+##17DCPC1I49.226639.<8811
+#0fDC1CPSCa?54d0
+#18DCPC1I128.598400.<edee
+#0fDC1CPSCd?ab25
+#17DCPC1I15.692167.<6412
+#0fDC1CPSCp?6492
+#19DCPC1I1018.537500.<46f2
+#0fDC1CPSCs?31c1
+#18DCPC1I591.000000.<f876
+#0fDC1CPSCl?228c
+#11DCPC1I526.<5886
+
+
+Answer-Funktion: 
+statt '.' oder '!' wird der Informationstyp auf 'A' oder 'E' gesetzt.
+
+das '<'-Zeichen soll immer gesendet werden, auch wenn kein CRC benutzt wird
+
+
+

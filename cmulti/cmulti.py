@@ -1,17 +1,37 @@
 import time
 from PyCRC.CRCCCITT import CRCCCITT
+
+class cmulti_crc_constants_t(object):
+    noCRC = 0
+    CRC_8 = 1
+    CRC_16 = 2
+    CRC_32 = 3
+    CRC_ccitt_1d0f = 4
+    CRC_ccitt_ffff = 5
+    CRC_dnp = 6
+    CRC_kermit = 7
+    CRC_modbus = 8
+    CRC_sick = 9
+    CRC_xmodem = 10
+
+    def __init__(self):
+        pass
+
+
+"""
 import lcm
 from exlcm import cmulti_command_t
 from exlcm import cmulti_answer_t
 from exlcm import cmulti_crc_constants_t
 from exlcm import cmulti_constants_t
+"""
 import argparse
 import serial
 
 class CMULTI(object):
    def __init__(self,source,comPort="", baudRate=57600, backChannel="Klima", withCrc = cmulti_crc_constants_t.noCRC, timeout=1000):
       if comPort != "":
-         self.interface = serial.Serial(comPort, 57600, timeout=3)
+         self.interface = serial.Serial(comPort, baudRate, timeout=3)
       else:
          self.interface = backChannel
          self.lc = lcm.LCM("udpm://239.255.76.67:7667?ttl=1")

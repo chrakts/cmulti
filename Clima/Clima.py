@@ -110,7 +110,7 @@ class Clima(CMULTI):
     except:    
       return(False,-999.9)
   	 
-test = Clima('CP','C1',withCrc=True)
+test = Clima('CP','C1',comPort="/dev/ttyUSB0", baudRate=115200,withCrc=True)
 print( test.getSecurityKey() )
 print( test.getTemperature() )
 print( test.getHumidity() )
