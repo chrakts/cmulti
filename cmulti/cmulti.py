@@ -19,6 +19,8 @@ class cmulti_crc_constants_t(object):
 
 
 """
+
+
 import lcm
 from exlcm import cmulti_command_t
 from exlcm import cmulti_answer_t
